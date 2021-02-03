@@ -13,6 +13,9 @@
    }
 }(this, function(_, Backbone) {
 
+// Prevent against Prototype Pollution: https://blog.sonatype.com/how-can-adversaries-exploit-npm-modules
+const INVALID_KEYS = ['__proto__', 'constructor'];
+
 var queryStringParam = /^\?(.*)/,
     optionalParam = /\((.*?)\)/g,
     namedParam    = /(\(\?)?:\w+/g,
@@ -309,8 +312,14 @@ function iterateQueryString(queryString, callback) {
   var keyValues = queryString.split('&');
   _.each(keyValues, function(keyValue) {
     var arr = keyValue.split('=');
-    callback(arr.shift(), arr.join('='));
+    if (!containsInvalidKey(keyValue)) {
+      callback(arr.shift(), arr.join('='));
+    }
   });
+}
+
+function containsInvalidKey(key) {
+  return INVALID_KEYS.some(invalidKey => key.includes(invalidKey));
 }
 
 }));

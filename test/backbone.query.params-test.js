@@ -325,4 +325,13 @@ $(document).ready(function() {
     equal(match[1], 'foo');
     equal(match[2], undefined);
   });
+
+  test("Prevent against Prototype Pollution", 1, function() {
+    var route = 'search/nyc/p10?__proto__.test=test&foo=bar%20%3A%20baz&foo.bar=test&constructor.prototype.test=test',
+        params = Backbone.history.getQueryParameters(route);
+    deepEqual(params, {
+      "foo": "bar : baz",
+      "foo.bar": "test"
+    });
+  })
 });
