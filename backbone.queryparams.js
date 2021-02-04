@@ -312,14 +312,14 @@ function iterateQueryString(queryString, callback) {
   var keyValues = queryString.split('&');
   _.each(keyValues, function(keyValue) {
     var arr = keyValue.split('=');
-    if (!containsInvalidKey(keyValue)) {
+    if (!containsInvalidKey(arr[0])) {
       callback(arr.shift(), arr.join('='));
     }
   });
 }
 
-function containsInvalidKey(key) {
-  return INVALID_KEYS.some(invalidKey => key.includes(invalidKey));
+function containsInvalidKey(keys) {
+  return INVALID_KEYS.some(invalidKey => keys.includes(invalidKey));
 }
 
 }));

@@ -327,11 +327,12 @@ $(document).ready(function() {
   });
 
   test("Prevent against Prototype Pollution", 1, function() {
-    var route = 'search/nyc/p10?__proto__.test=test&foo=bar%20%3A%20baz&foo.bar=test&constructor.prototype.test=test',
+    var route = 'search/nyc/p10?__proto__.polluted=foo&constructor.prototype.polluted=bar&bar=constructor&foo=bar&foobar',
         params = Backbone.history.getQueryParameters(route);
     deepEqual(params, {
-      "foo": "bar : baz",
-      "foo.bar": "test"
+      "bar": "constructor",
+      "foo": "bar",
+      "foobar": ""
     });
   })
 });
