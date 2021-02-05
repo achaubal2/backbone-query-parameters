@@ -64,3 +64,9 @@ If you want to use this plugin with regex routes you'll need to append the query
 should be written
 
     router.route(/foo\/([^\/]+)\/([\?]{1}.*)?/, 'foo:event', callback)
+
+Prevention Against Prototype Pollution
+-------------------------
+Note that the keywords `__proto__` and `constructor` won't be allowed as key in the query parameters for security reason.
+
+If you want to learn more about Prototype Pollution: https://blog.sonatype.com/how-can-adversaries-exploit-npm-modules
