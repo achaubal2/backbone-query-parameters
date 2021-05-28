@@ -360,7 +360,11 @@ function iterateQueryString(queryString, callback) {
 }
 
 function containsInvalidKey(keys) {
-  return INVALID_KEYS.some(invalidKey => keys.includes(invalidKey));
+  // Square brackets will be removed down the line so
+  // we want to make sure they are filtered upfront.
+  const regex = /(\[|\])+/gi;
+  var sanitizedKeys = keys.replace(regex, '');
+  return INVALID_KEYS.some(invalidKey => sanitizedKeys.includes(invalidKey));
 }
 
 }));
