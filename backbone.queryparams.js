@@ -353,18 +353,18 @@ function iterateQueryString(queryString, callback) {
   var keyValues = queryString.split('&');
   _.each(keyValues, function(keyValue) {
     var arr = keyValue.split('=');
-    if (!containsInvalidKey(arr[0])) {
+    if (!isInvalidKey(arr[0])) {
       callback(arr.shift(), arr.join('='));
     }
   });
 }
 
-function containsInvalidKey(keys) {
+function isInvalidKey(key) {
   // Square brackets will be removed down the line so
   // we want to make sure they are filtered upfront.
   var regex = /(\[|\])+/gi;
-  var sanitizedKeys = keys.replace(regex, '');
-  return INVALID_KEYS.some(invalidKey => sanitizedKeys.includes(invalidKey));
+  var sanitizedKey = key.replace(regex, '');
+  return INVALID_KEYS.some(invalidKey => sanitizedKey.includes(invalidKey));
 }
 
 }));
