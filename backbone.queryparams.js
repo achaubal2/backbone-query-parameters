@@ -14,7 +14,7 @@
 }(this, function(_, Backbone) {
 
 // Prevent against Prototype Pollution: https://blog.sonatype.com/how-can-adversaries-exploit-npm-modules
-const INVALID_KEYS = ['__proto__', 'constructor'];
+var INVALID_KEYS = ['__proto__', 'constructor'];
 
 var queryStringParam = /^\?(.*)/,
     optionalParam = /\((.*?)\)/g,
@@ -362,7 +362,7 @@ function iterateQueryString(queryString, callback) {
 function containsInvalidKey(keys) {
   // Square brackets will be removed down the line so
   // we want to make sure they are filtered upfront.
-  const regex = /(\[|\])+/gi;
+  var regex = /(\[|\])+/gi;
   var sanitizedKeys = keys.replace(regex, '');
   return INVALID_KEYS.some(invalidKey => sanitizedKeys.includes(invalidKey));
 }
