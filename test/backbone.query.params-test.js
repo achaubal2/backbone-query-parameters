@@ -335,4 +335,14 @@ $(document).ready(function() {
       "foobar": ""
     });
   })
+
+  test("Prevent against Prototype Pollution (bypassing filter when using square brackets)", 1, function() {
+    var route = 'search/nyc/p10?__pr]o[]to__.polluted=foo&c]ons[]tr[uc]tor.prototype.polluted=bar&bar=constructor&foo=bar&foobar',
+        params = Backbone.history.getQueryParameters(route);
+    deepEqual(params, {
+      "bar": "constructor",
+      "foo": "bar",
+      "foobar": ""
+    });
+  })
 });
